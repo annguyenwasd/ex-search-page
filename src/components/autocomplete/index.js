@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components/macro";
 import { ThemeProvider, css } from "styled-components";
 import { Search } from "react-feather";
@@ -149,10 +150,27 @@ const Input = styled.input`
   }
 `;
 
-Autocomplete.propTypes = {};
+Autocomplete.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string
+    })
+  ),
+  onChange: PropTypes.func,
+  selected: PropTypes.shape({
+    label: PropTypes.string,
+    value: PropTypes.string
+  }),
+  onSelect: PropTypes.func
+};
 
 Autocomplete.defaultProps = {
-  placeholder: "Try Vietnam"
+  placeholder: "",
+  options: null,
+  selected: null,
+  onChange: () => {},
+  onSelect: () => {}
 };
 
 export default Autocomplete;
