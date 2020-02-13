@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import styled from "styled-components/macro";
-import PropTypes from "prop-types";
 import Autocomplete from "components/autocomplete";
 import cities from "../data/cities";
 import { isEmpty } from "lodash";

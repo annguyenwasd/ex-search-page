@@ -140,7 +140,9 @@ const BackgroundedContainer = styled.div`
   width: 100vw;
 `;
 
-Layout.propTypes = {};
+Layout.propTypes = {
+  children: PropTypes.node.isRequired
+};
 
 Layout.defaultProps = {};
 
