@@ -26,6 +26,7 @@ function Autocomplete({ options, selected, onChange, onSelect, ...rest }) {
         <InputWrapper>
           <Search />
           <Input
+            type="text"
             ref={input}
             onChange={e => {
               const { value } = e.target;
@@ -36,7 +37,7 @@ function Autocomplete({ options, selected, onChange, onSelect, ...rest }) {
           />
         </InputWrapper>
         {isFocusing && !isEmpty(options) ? (
-          <ResultWrapper>
+          <ResultWrapper data-testid="result-wrapper">
             {options.map(o => (
               <Result
                 key={o.value}
