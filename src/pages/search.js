@@ -31,6 +31,7 @@ function Search() {
   return (
     <Wrapper>
       <Autocomplete
+        placeholder="Try Vietnam"
         onChange={fakeFetch}
         options={result}
         selected={selected}

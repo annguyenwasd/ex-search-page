@@ -6,52 +6,94 @@ import logo from "assets/airbnb-logo.svg";
 import background from "assets/background.jpg";
 import { Menu, X } from "react-feather";
 import { Link, useLocation } from "react-router-dom";
+import useThemeMode from "utils/useThemeMode";
+import Switch from "react-switch";
+import night from "assets/night.svg";
+import sunny from "assets/sunny.svg";
 
 function Layout({ children }) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const [theme, toggleTheme, mounted] = useThemeMode();
+  const [isLightTheme, setLightTheme] = useState(theme === "light");
 
   useEffect(() => {
     setOpen(false);
   }, [location]);
 
+  if (!mounted) return null;
+
   return (
-    <ThemeProvider theme={{ open }}>
+    <ThemeProvider theme={{ open, theme }}>
       <BackgroundedContainer>
-        <Container>
-          <Nav>
-            <Link to="/">
-              <img src={logo} alt="air bnb logo" />
-            </Link>
-            <NavControl>
-              {open ? (
-                <X onClick={() => setOpen(false)} width={30} height={30} />
-              ) : (
-                <Menu onClick={() => setOpen(true)} width={30} height={30} />
-              )}
-            </NavControl>
-            <Navs open={open}>
-              <li>dark/light</li>
-              <li>
-                <Link to="/host">Become a host</Link>
-              </li>
-              <li>
-                <Link to="/help">Help</Link>
-              </li>
-              <li>
-                <Link to="/sing-up">Sign up</Link>
-              </li>
-              <li>
-                <Link to="/login">Log in</Link>
-              </li>
-            </Navs>
-          </Nav>
-          <Content>{children}</Content>
-        </Container>
+        <BackDropContainer>
+          <Container>
+            <Nav>
+              <Link to="/">
+                <img src={logo} alt="air bnb logo" />
+              </Link>
+              <NavControl>
+                {open ? (
+                  <X onClick={() => setOpen(false)} width={30} height={30} />
+                ) : (
+                  <Menu onClick={() => setOpen(true)} width={30} height={30} />
+                )}
+              </NavControl>
+              <Navs open={open}>
+                <li>
+                  <Switch
+                    checked={isLightTheme}
+                    offColor="#555555"
+                    onColor="#555555"
+                    checkedIcon={<Check src={night} />}
+                    uncheckedIcon={<Uncheck src={sunny} />}
+                    onChange={() => {
+                      toggleTheme();
+                      setLightTheme(theme === "light");
+                    }}
+                  />
+                </li>
+                <li>
+                  <Link to="/host">Become a host</Link>
+                </li>
+                <li>
+                  <Link to="/help">Help</Link>
+                </li>
+                <li>
+                  <Link to="/sing-up">Sign up</Link>
+                </li>
+                <li>
+                  <Link to="/login">Log in</Link>
+                </li>
+              </Navs>
+            </Nav>
+            <Content>{children}</Content>
+          </Container>
+        </BackDropContainer>
       </BackgroundedContainer>
     </ThemeProvider>
   );
 }
+
+const Check = styled.img`
+  margin-top: 5px;
+  margin-left: 8px;
+`;
+
+const Uncheck = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-top: 3px;
+  margin-left: 4px;
+`;
+
+// for dark theme
+const BackDropContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: ${p =>
+    p.theme.theme === "dark" ? "rgba(0, 0, 0, 0.85)" : "transparent"};
+`;
 
 // hold position for nav
 const Content = styled.main`
@@ -75,7 +117,9 @@ const Nav = styled.nav`
       p.theme.open &&
       css`
         height: 100vh;
-        background-color: rgba(71, 71, 71, 0.65);
+        background-color: ${p.theme.theme === "dark"
+          ? "#0E0E0E"
+          : "rgba(71, 71, 71, 0.65)"};
         align-items: flex-start;
         position: absolute;
         top: 0;

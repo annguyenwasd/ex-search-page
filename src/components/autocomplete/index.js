@@ -71,6 +71,14 @@ const ResultWrapper = styled.div`
   border-radius: 0 0 4px 4px;
   overflow-y: auto;
   padding: 10px 0;
+  color: #484848;
+
+  ${p =>
+    p.theme.theme === "dark" &&
+    css`
+      background-color: #1b1b1b;
+      color: #cdcdcd;
+    `};
 `;
 
 const Result = styled.div`
@@ -80,20 +88,21 @@ const Result = styled.div`
   font-size: 18px;
   line-height: 21px;
   /* identical to box height */
-  color: #484848;
+  color: inherit;
   height: 50px;
   display: flex;
   align-items: center;
   padding: 0 21px;
 
   &:hover {
-    background-color: #f8f8f8;
+    background-color: ${p =>
+      p.theme.theme === "dark" ? "#0E0E0E" : "#f8f8f8"};
   }
 
   ${p =>
     p.selected &&
     css`
-      background-color: #dad9d9;
+      background-color: ${p.theme.theme === "dark" ? "#0E0E0E" : "#dad9d9"};
     `};
 `;
 
@@ -119,12 +128,26 @@ const InputWrapper = styled.div`
   border-radius: 4px;
   background-color: white;
 
+  ${p =>
+    p.theme.theme === "dark" &&
+    css`
+      border-color: #565656;
+      background-color: #0e0e0e;
+      color: #cdcdcd;
+
+      input::placeholder,
+      input {
+        color: inherit;
+      }
+    `};
+
   input {
     background-color: inherit;
   }
 
   ${p =>
     p.theme.isFocusing &&
+    p.theme.theme === "light" &&
     css`
       border-radius: 4px 4px 0 0;
       background-color: #f8f8f8;
