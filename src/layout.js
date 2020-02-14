@@ -15,7 +15,6 @@ function Layout({ children }) {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const [theme, toggleTheme, mounted] = useThemeMode();
-  const [isLightTheme, setLightTheme] = useState(theme === "light");
 
   useEffect(() => {
     setOpen(false);
@@ -42,14 +41,13 @@ function Layout({ children }) {
               <Navs open={open}>
                 <li>
                   <Switch
-                    checked={isLightTheme}
+                    checked={theme === 'dark'}
                     offColor="#555555"
                     onColor="#555555"
                     checkedIcon={<Check src={night} />}
                     uncheckedIcon={<Uncheck src={sunny} />}
                     onChange={() => {
                       toggleTheme();
-                      setLightTheme(theme === "light");
                     }}
                   />
                 </li>
