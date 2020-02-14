@@ -41,7 +41,7 @@ function Layout({ children }) {
               <Navs open={open}>
                 <li>
                   <Switch
-                    checked={theme === 'dark'}
+                    checked={theme === "dark"}
                     offColor="#555555"
                     onColor="#555555"
                     checkedIcon={<Check src={night} />}
@@ -142,6 +142,7 @@ const Navs = styled.ul`
   font-weight: bold;
   font-size: 14px;
   line-height: 16px;
+  align-items: center;
 
   @media screen and (max-width: 769px) {
     display: ${p => (p.open ? "block" : "none")};
